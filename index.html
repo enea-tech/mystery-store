@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>420 Mystery Store - Official</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --accent: #76ff03;
+            --purple-rarity: #d500f9;
+            --orange-rarity: #ff9800;
+            --kali-purple: #d500f9;
+            --kali-white: #ffffff;
+            --kali-blue: #00e5ff;
+            --dark: #0a0a0a;
+            --card-bg: #161616;
+            --light: #f1f1f1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+
+        /* HEADER PERSONALIZZATO */
+        header {
+            width: 100%;
+            height: 500px; 
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border-bottom: 3px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .banner-logo {
+            width: 80%;
+            height: 80%;
+            display: block;
+            object-fit: cover; 
+            object-position: center; 
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .box-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .box-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid #333;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box-card:not(.coming-soon):hover {
+            transform: translateY(-12px);
+        }
+
+        /* HOVER EFFECTS */
+        .orange-hover:hover { border-color: var(--orange-rarity); box-shadow: 0 10px 40px rgba(255, 152, 0, 0.3); }
+        .purple-hover:hover { border-color: var(--purple-rarity); box-shadow: 0 10px 40px rgba(213, 0, 249, 0.3); }
+        .kali-hover:hover { 
+            border-color: var(--kali-white); 
+            box-shadow: 0 0 15px var(--kali-purple), 0 0 30px var(--kali-blue), 0 10px 40px rgba(255, 255, 255, 0.2); 
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 300px;
+            background: radial-gradient(circle, #222 0%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .image-wrapper img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+        .badge-amnesia { background: var(--orange-rarity); color: #000; }
+        .badge-purple { background: var(--purple-rarity); color: #fff; }
+        .badge-kali { background: linear-gradient(45deg, var(--kali-purple), var(--kali-blue)); color: #fff; }
+        .badge-soon { background: #444; color: #aaa; }
+
+        .content { padding: 25px; flex-grow: 1; }
+
+        .price {
+            font-size: 2.2rem;
+            color: #fff;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .items-list {
+            margin: 15px 0;
+            padding: 0;
+            list-style: none;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .items-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
+        .items-list li::before {
+            content: "✔";
+            color: var(--accent);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .option-panel {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 1px solid #444;
+        }
+
+        .btn-buy {
+            display: block;
+            background: var(--accent);
+            color: #000;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        
+        .btn-buy:hover { background: #fff; transform: scale(1.02); }
+
+        /* BOX COMING SOON STYLE */
+        .coming-soon {
+            opacity: 0.7;
+            filter: grayscale(0.5);
+            border: 2px dashed #444;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://i.postimg.cc/59BWBS6d/Whats-App-Image-2026-03-02-at-20-36-39.jpg" alt="420 Mystery Store Banner" class="banner-logo">
+</header>
+
+<div class="container">
+    <div class="box-grid">
+        
+        <div class="box-card orange-hover">
+            <div class="image-wrapper">
+                <span class="badge badge-amnesia">Rarità: AMNESIA</span>
+                <img src="https://i.postimg.cc/pr51GxBt/box1-png.jpg" alt="Amnesia Box">
+            </div>
+            <div class="content">
+                <h3>Combo Prima Box</h3>
+                <div class="price">35,00€</div>
+                <ul class="items-list">
+                    <li>7 Filtrini in carbonio</li>
+                    <li>Grinder Swag + Porta J Swag</li>
+                    <li>Mistiera</li>
+                    <li>Bustine + Accendino</li>
+                    <li>Cartine lunghe (gusto a scelta)</li>
+                </ul>
+                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Prima Box (35€)" class="btn-buy">Ordina su WhatsApp</a>
+            </div>
+        </div>
+
+        <div class="box-card purple-hover">
+            <div class="image-wrapper">
+                <span class="badge badge-purple">Rarità: PURPLE</span>
+                <img src="https://i.postimg.cc/dDMNgXWC/box2-png.jpg" alt="Combo Ricercata">
+            </div>
+            <div class="content">
+                <h3>Combo Ricercata</h3>
+                <div class="price" id="total-price-2">55,00€</div>
+                <ul class="items-list">
+                    <li>20 Filtrini in carbonio</li>
+                    <li>Grinder Swag + Porta J Swag</li>
+                    <li>Mistiera + Porta Clipper</li>
+                    <li>Preservativo Canapa + Accendino</li>
+                    <li>Busta porta estratto Rick e Morty</li>
+                    <li>5 Cartine Blunt (gusto a scelta)</li>
+                    <li>Cartine inasporite (gusto a scelta)</li>
+                </ul>
+                <div class="option-panel">
+                    <input type="checkbox" id="monkey-king-opt" onchange="toggleExtra()">
+                    <label for="monkey-king-opt" style="cursor:pointer; font-size: 0.85rem;"> 🎁 + Lattina Monkey King (+15€)</label>
+                </div>
+                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Ricercata (55€)" id="wa-btn-2" class="btn-buy">Ordina su WhatsApp</a>
+            </div>
+        </div>
+
+        <div class="box-card kali-hover">
+            <div class="image-wrapper">
+                <span class="badge badge-kali">Rarità: KALI</span>
+                <img src="https://i.postimg.cc/8PRVNBhT/unnamed-(12).jpg" alt="Combo Kali Box">
+            </div>
+            <div class="content">
+                <h3>Combo Kali Box</h3>
+                <div class="price">55,00€</div>
+                <ul class="items-list">
+                    <li>7 Filtrini in carbonio</li>
+                    <li>Vassoio Swag + Grinder Swag</li>
+                    <li>Porta J Swag + Porta Clipper</li>
+                    <li>5 Blunt + 2 Pacchi Cartine lunghe</li>
+                    <li>Busta e Accendino</li>
+                </ul>
+                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Kali Box (55€)" class="btn-buy">Ordina su WhatsApp</a>
+            </div>
+        </div>
+
+        <div class="box-card coming-soon">
+            <div class="image-wrapper">
+                <span class="badge badge-soon">Mistero</span>
+                <div style="font-size: 5rem; color: #333;">?</div>
+            </div>
+            <div class="content">
+                <h3>Nuova Combo</h3>
+                <div class="price">??,??€</div>
+                <p style="color: #666; font-size: 0.9rem;">Stiamo preparando qualcosa di unico. Resta sintonizzato per il prossimo drop.</p>
+                <div style="margin-top: auto;">
+                    <a href="#" class="btn-buy" style="background: #333; color: #666; pointer-events: none;">Prossimamente</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function toggleExtra() {
+        const check = document.getElementById('monkey-king-opt');
+        const priceDisplay = document.getElementById('total-price-2');
+        const waBtn = document.getElementById('wa-btn-2');
+        const numero = "393274924496";
+        
+        if (check.checked) {
+            priceDisplay.innerText = "70,00€";
+            priceDisplay.style.color = "#76ff03";
+            waBtn.href = `https://wa.me/${numero}?text=Ciao! Vorrei ordinare la Combo Ricercata con l'aggiunta della Lattina Monkey King (Totale 70€)`;
+        } else {
+            priceDisplay.innerText = "55,00€";
+            priceDisplay.style.color = "#fff";
+            waBtn.href = `https://wa.me/${numero}?text=Ciao! Vorrei ordinare la Combo Ricercata (55€)`;
+        }
+    }
+</script>
+<div style="text-align: center; margin: 20px 0;">
+    <a href="catalogo.html" style="color: #76ff03; text-decoration: none; border: 1px dashed #76ff03; padding: 10px 20px;">
+        Sfoglia il Catalogo Prodotti Singoli →
+    </a>
+</div>
+</body>
+</html>

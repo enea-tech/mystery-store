@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Prodotti - 420 Mystery Store</title>
+    <style>
+        :root {
+            --accent: #76ff03;
+            --dark: #0a0a0a;
+            --card-bg: #111;
+            --border-color: #333;
+            --text-dim: #888;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: #eee;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        /* HEADER RIDOTTO */
+        header {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            border-bottom: 2px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .banner-small {
+            width: 60%;
+            height: auto;
+            opacity: 0.6;
+            filter: grayscale(1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 40px;
+        }
+
+        /* GRIGLIA PRODOTTI STILE "BOX 4" */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-item {
+            background: var(--card-bg);
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .product-item:hover {
+            border-style: solid;
+            border-color: var(--accent);
+            background: #161616;
+        }
+
+        .product-item h3 {
+            color: var(--accent);
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        .product-item p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .category-tag {
+            font-size: 0.65rem;
+            background: #222;
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: #555;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://i.postimg.cc/59BWBS6d/Whats-App-Image-2026-03-02-at-20-36-39.jpg" class="banner-small">
+</header>
+
+<div class="container">
+    <a href="index.html" class="back-link">← Torna alle Box</a>
+    <h1>Componenti Mystery</h1>
+
+    <div class="catalog-grid">
+        <div class="product-item">
+            <span class="category-tag">Accessori</span>
+            <h3>Grinder Swag</h3>
+            <p>Trinciatore in lega di zinco con finitura custom. Denti affilati a diamante per un risultato perfetto.</p>
+        </div>
+
+        <div class="product-item">
+            <span class="category-tag">Storage</span>
+            <h3>Porta J Swag</h3>
+            <p>Contenitore ermetico e anti-odore. Design compatto per proteggere i tuoi prodotti in ogni situazione.</p>
+        </div>
+
+        <div class="product-item">
+            <span class="category-tag">Tools</span>
+            <h3>Mistiera</h3>
+            <p>Superficie ottimizzata per la preparazione manuale. Facile da pulire e resistente agli urti.</p>
+        </div>
+
+        <div class="product-item">
+            <span class="category-tag">Kit</span>
+            <h3>Vassoio Swag</h3>
+            <p>Base solida con bordi rialzati. Grafica esclusiva 420 Store coordinata con gli altri accessori.</p>
+        </div>
+
+        <div class="product-item">
+            <span class="category-tag">Special</span>
+            <h3>Busta Rick e Morty</h3>
+            <p>Packaging da collezione per estratti. Chiusura zip rinforzata e grafica psichedelica ad alta risoluzione.</p>
+        </div>
+
+        <div class="product-item">
+            <span class="category-tag">Filtraggio</span>
+            <h3>Filtrini in Carbonio</h3>
+            <p>Filtri di alta qualità progettati per ridurre le impurità mantenendo il sapore originale.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
