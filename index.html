@@ -75,25 +75,12 @@
             flex-direction: column;
         }
 
-        .box-card:hover { transform: translateY(-12px); }
+        .box-card:not(.coming-soon):hover { transform: translateY(-12px); }
 
-        /* EFFETTI HOVER */
+        /* EFFETTI HOVER PER LE BOX ATTIVE */
         .orange-hover:hover { border-color: var(--orange-rarity); box-shadow: 0 10px 40px rgba(255, 152, 0, 0.3); }
         .purple-hover:hover { border-color: var(--purple-rarity); box-shadow: 0 10px 40px rgba(213, 0, 249, 0.3); }
         .kali-hover:hover { border-color: var(--kali-white); box-shadow: 0 0 15px var(--kali-purple), 0 0 30px var(--kali-blue), 0 10px 40px rgba(255, 255, 255, 0.2); }
-        
-        /* HOVER NARCOS PSICHEDELICO */
-        .narcos-hover:hover { 
-            border-color: var(--trip-pink); 
-            box-shadow: 0 0 15px var(--trip-pink), 0 0 30px var(--trip-lime), 0 0 45px var(--trip-cyan);
-            animation: trippy-glow 2s infinite alternate;
-        }
-
-        @keyframes trippy-glow {
-            0% { border-color: var(--trip-pink); }
-            50% { border-color: var(--trip-lime); }
-            100% { border-color: var(--trip-cyan); }
-        }
 
         .image-wrapper {
             width: 100%;
@@ -112,6 +99,20 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
         }
 
+        /* PUNTI INTERROGATIVI PERMANENTI FLASHING */
+        .question-marks {
+            font-size: 5rem;
+            color: #fff;
+            animation: permanent-trippy-flash 3s infinite alternate;
+        }
+
+        @keyframes permanent-trippy-flash {
+            0% { text-shadow: 0 0 10px var(--trip-pink), 0 0 20px var(--trip-pink); }
+            33% { text-shadow: 0 0 10px var(--trip-lime), 0 0 20px var(--trip-lime); }
+            66% { text-shadow: 0 0 10px var(--trip-cyan), 0 0 20px var(--trip-cyan); }
+            100% { text-shadow: 0 0 10px var(--trip-pink), 0 0 20px var(--trip-pink); }
+        }
+
         .badge {
             position: absolute;
             top: 15px;
@@ -126,11 +127,7 @@
         .badge-amnesia { background: var(--orange-rarity); color: #000; }
         .badge-purple { background: var(--purple-rarity); color: #fff; }
         .badge-kali { background: linear-gradient(45deg, var(--kali-purple), var(--kali-blue)); color: #fff; }
-        .badge-narcos { 
-            background: linear-gradient(45deg, var(--trip-pink), var(--trip-lime), var(--trip-cyan)); 
-            color: #000; 
-            box-shadow: 0 0 15px var(--trip-lime);
-        }
+        .badge-soon { background: #444; color: #aaa; }
 
         .content { padding: 25px; flex-grow: 1; }
         .price { font-size: 2.2rem; color: #fff; font-weight: 900; margin-bottom: 10px; }
@@ -150,7 +147,27 @@
             text-transform: uppercase;
             transition: 0.3s;
         }
-        .btn-buy:hover { background: #fff; transform: scale(1.02); }
+        .btn-buy:not(.disabled):hover { background: #fff; transform: scale(1.02); }
+
+        /* STILE PER LA BOX IN COMING SOON */
+        .coming-soon {
+            opacity: 0.7;
+            filter: grayscale(0.5);
+            border: 2px dashed #444;
+        }
+
+        .soon-message {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .btn-buy.disabled {
+            background: #333;
+            color: #666;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -225,22 +242,18 @@
             </div>
         </div>
 
-        <div class="box-card narcos-hover">
+        <div class="box-card coming-soon">
             <div class="image-wrapper">
-                <span class="badge badge-narcos">Rarità: NARCOS</span>
-                <img src="https://i.postimg.cc/8PRVNBhT/unnamed-(12).jpg" alt="Narcos Box">
+                <span class="badge badge-soon">Mistero</span>
+                <div class="question-marks">???</div>
             </div>
             <div class="content">
                 <h3>Combo Narcos Box</h3>
-                <div class="price">50,00€</div>
-                <ul class="items-list">
-                    <li>7 Filtrini in carbonio</li>
-                    <li>Vassoio Swag + Grinder Swag</li>
-                    <li>Porta J Swag + Accendino + Buste</li>
-                    <li>Porta estratto Rick e Morty</li>
-                    <li>5 Cartine Blunt (gusto a scelta)</li>
-                </ul>
-                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Narcos Box (50€)" class="btn-buy">Ordina su WhatsApp</a>
+                <div class="price">??,??€</div>
+                <p class="soon-message">Stiamo preparando qualcosa di veramente trippy. Il kit definitivo sta arrivando...</p>
+                <div style="margin-top: auto;">
+                    <div class="btn-buy disabled">Prossimamente</div>
+                </div>
             </div>
         </div>
 
