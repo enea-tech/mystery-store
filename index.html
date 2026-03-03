@@ -13,6 +13,10 @@
             --kali-purple: #d500f9;
             --kali-white: #ffffff;
             --kali-blue: #00e5ff;
+            /* COLORI PSICHEDELICI PER NARCOS */
+            --trip-pink: #ff00ff;
+            --trip-lime: #00ff00;
+            --trip-cyan: #00ffff;
             --dark: #0a0a0a;
             --card-bg: #161616;
             --light: #f1f1f1;
@@ -27,7 +31,7 @@
             padding-bottom: 80px;
         }
 
-        /* HEADER PERSONALIZZATO */
+        /* HEADER */
         header {
             width: 100%;
             height: 500px; 
@@ -40,7 +44,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .banner-logo {
             width: 80%;
             height: 80%;
@@ -71,16 +75,24 @@
             flex-direction: column;
         }
 
-        .box-card:not(.coming-soon):hover {
-            transform: translateY(-12px);
-        }
+        .box-card:hover { transform: translateY(-12px); }
 
-        /* HOVER EFFECTS */
+        /* EFFETTI HOVER */
         .orange-hover:hover { border-color: var(--orange-rarity); box-shadow: 0 10px 40px rgba(255, 152, 0, 0.3); }
         .purple-hover:hover { border-color: var(--purple-rarity); box-shadow: 0 10px 40px rgba(213, 0, 249, 0.3); }
-        .kali-hover:hover { 
-            border-color: var(--kali-white); 
-            box-shadow: 0 0 15px var(--kali-purple), 0 0 30px var(--kali-blue), 0 10px 40px rgba(255, 255, 255, 0.2); 
+        .kali-hover:hover { border-color: var(--kali-white); box-shadow: 0 0 15px var(--kali-purple), 0 0 30px var(--kali-blue), 0 10px 40px rgba(255, 255, 255, 0.2); }
+        
+        /* HOVER NARCOS PSICHEDELICO */
+        .narcos-hover:hover { 
+            border-color: var(--trip-pink); 
+            box-shadow: 0 0 15px var(--trip-pink), 0 0 30px var(--trip-lime), 0 0 45px var(--trip-cyan);
+            animation: trippy-glow 2s infinite alternate;
+        }
+
+        @keyframes trippy-glow {
+            0% { border-color: var(--trip-pink); }
+            50% { border-color: var(--trip-lime); }
+            100% { border-color: var(--trip-cyan); }
         }
 
         .image-wrapper {
@@ -114,40 +126,17 @@
         .badge-amnesia { background: var(--orange-rarity); color: #000; }
         .badge-purple { background: var(--purple-rarity); color: #fff; }
         .badge-kali { background: linear-gradient(45deg, var(--kali-purple), var(--kali-blue)); color: #fff; }
-        .badge-soon { background: #444; color: #aaa; }
+        .badge-narcos { 
+            background: linear-gradient(45deg, var(--trip-pink), var(--trip-lime), var(--trip-cyan)); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--trip-lime);
+        }
 
         .content { padding: 25px; flex-grow: 1; }
-
-        .price {
-            font-size: 2.2rem;
-            color: #fff;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        .items-list {
-            margin: 15px 0;
-            padding: 0;
-            list-style: none;
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
+        .price { font-size: 2.2rem; color: #fff; font-weight: 900; margin-bottom: 10px; }
+        .items-list { margin: 15px 0; padding: 0; list-style: none; color: #aaa; font-size: 0.85rem; }
         .items-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
-        .items-list li::before {
-            content: "✔";
-            color: var(--accent);
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .option-panel {
-            background: rgba(0,0,0,0.5);
-            padding: 15px;
-            border-radius: 12px;
-            margin: 15px 0;
-            border: 1px solid #444;
-        }
+        .items-list li::before { content: "✔"; color: var(--accent); margin-right: 10px; font-weight: bold; }
 
         .btn-buy {
             display: block;
@@ -161,15 +150,7 @@
             text-transform: uppercase;
             transition: 0.3s;
         }
-        
         .btn-buy:hover { background: #fff; transform: scale(1.02); }
-
-        /* BOX COMING SOON STYLE */
-        .coming-soon {
-            opacity: 0.7;
-            filter: grayscale(0.5);
-            border: 2px dashed #444;
-        }
     </style>
 </head>
 <body>
@@ -217,7 +198,7 @@
                     <li>5 Cartine Blunt (gusto a scelta)</li>
                     <li>Cartine inasporite (gusto a scelta)</li>
                 </ul>
-                <div class="option-panel">
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #444;">
                     <input type="checkbox" id="monkey-king-opt" onchange="toggleExtra()">
                     <label for="monkey-king-opt" style="cursor:pointer; font-size: 0.85rem;"> 🎁 + Lattina Monkey King (+15€)</label>
                 </div>
@@ -244,18 +225,22 @@
             </div>
         </div>
 
-        <div class="box-card coming-soon">
+        <div class="box-card narcos-hover">
             <div class="image-wrapper">
-                <span class="badge badge-soon">Mistero</span>
-                <div style="font-size: 5rem; color: #333;">?</div>
+                <span class="badge badge-narcos">Rarità: NARCOS</span>
+                <img src="https://i.postimg.cc/8PRVNBhT/unnamed-(12).jpg" alt="Narcos Box">
             </div>
             <div class="content">
-                <h3>Nuova Combo</h3>
-                <div class="price">??,??€</div>
-                <p style="color: #666; font-size: 0.9rem;">Stiamo preparando qualcosa di unico. Resta sintonizzato per il prossimo drop.</p>
-                <div style="margin-top: auto;">
-                    <a href="#" class="btn-buy" style="background: #333; color: #666; pointer-events: none;">Prossimamente</a>
-                </div>
+                <h3>Combo Narcos Box</h3>
+                <div class="price">50,00€</div>
+                <ul class="items-list">
+                    <li>7 Filtrini in carbonio</li>
+                    <li>Vassoio Swag + Grinder Swag</li>
+                    <li>Porta J Swag + Accendino + Buste</li>
+                    <li>Porta estratto Rick e Morty</li>
+                    <li>5 Cartine Blunt (gusto a scelta)</li>
+                </ul>
+                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Narcos Box (50€)" class="btn-buy">Ordina su WhatsApp</a>
             </div>
         </div>
 
@@ -280,10 +265,6 @@
         }
     }
 </script>
-<div style="text-align: center; margin: 20px 0;">
-    <a href="catalogo.html" style="color: #76ff03; text-decoration: none; border: 1px dashed #76ff03; padding: 10px 20px;">
-        Sfoglia il Catalogo Prodotti Singoli →
-    </a>
-</div>
+
 </body>
 </html>
