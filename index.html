@@ -19,6 +19,8 @@
             --dark: #0a0a0a;
             --card-bg: #161616;
             --light: #f1f1f1;
+            --sold-out: #ff1744;
+            --warning: #ffea00;
         }
 
         body {
@@ -51,12 +53,7 @@
             object-position: center; 
         }
 
-        /* LINK AL CATALOGO ESTERNO */
-        .nav-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-
+        .nav-container { text-align: center; margin: 30px 0; }
         .btn-catalog {
             display: inline-block;
             color: var(--accent);
@@ -69,24 +66,10 @@
             letter-spacing: 2px;
             transition: 0.3s;
         }
+        .btn-catalog:hover { background: var(--accent); color: #000; border-style: solid; }
 
-        .btn-catalog:hover {
-            background: var(--accent);
-            color: #000;
-            border-style: solid;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .box-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .box-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 
         .box-card {
             background: var(--card-bg);
@@ -96,13 +79,35 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
-        .box-card:not(.coming-soon):hover { transform: translateY(-12px); }
+        /* SISTEMA STATUS (DA USARE ALL'OCCORRENZA) */
+        .box-card.is-sold-out { opacity: 0.6; filter: grayscale(0.8); pointer-events: none; }
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: 900;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            z-index: 20;
+        }
+        .badge-sold-out { background: var(--sold-out); color: #fff; box-shadow: 0 0 15px var(--sold-out); }
+        .badge-last-pieces { 
+            background: var(--warning); color: #000; 
+            box-shadow: 0 0 15px var(--warning);
+            animation: pulse-warning 1.5s infinite;
+        }
+        @keyframes pulse-warning { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        .box-card:not(.is-sold-out):hover { transform: translateY(-12px); }
 
         .orange-hover:hover { border-color: var(--orange-rarity); box-shadow: 0 10px 40px rgba(255, 152, 0, 0.3); }
         .purple-hover:hover { border-color: var(--purple-rarity); box-shadow: 0 10px 40px rgba(213, 0, 249, 0.3); }
-        .kali-hover:hover { border-color: var(--kali-white); box-shadow: 0 0 15px var(--kali-purple), 0 0 30px var(--kali-blue), 0 10px 40px rgba(255, 255, 255, 0.2); }
+        .kali-hover:hover { border-color: var(--kali-white); box-shadow: 0 0 15px var(--kali-purple), 0 0 30px var(--kali-blue); }
 
         .image-wrapper {
             width: 100%;
@@ -113,38 +118,16 @@
             justify-content: center;
             position: relative;
         }
+        .image-wrapper img { max-width: 90%; max-height: 90%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
 
-        .image-wrapper img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
-        }
-
-        .question-marks {
-            font-size: 5rem;
-            color: #fff;
-            animation: permanent-trippy-flash 3s infinite alternate;
-        }
-
+        .question-marks { font-size: 5rem; color: #fff; animation: permanent-trippy-flash 3s infinite alternate; }
         @keyframes permanent-trippy-flash {
-            0% { text-shadow: 0 0 10px var(--trip-pink), 0 0 20px var(--trip-pink); }
-            33% { text-shadow: 0 0 10px var(--trip-lime), 0 0 20px var(--trip-lime); }
-            66% { text-shadow: 0 0 10px var(--trip-cyan), 0 0 20px var(--trip-cyan); }
-            100% { text-shadow: 0 0 10px var(--trip-pink), 0 0 20px var(--trip-pink); }
+            0% { text-shadow: 0 0 10px var(--trip-pink); }
+            50% { text-shadow: 0 0 10px var(--trip-lime); }
+            100% { text-shadow: 0 0 10px var(--trip-cyan); }
         }
 
-        .badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            z-index: 10;
-        }
+        .badge { position: absolute; top: 15px; left: 15px; padding: 8px 18px; border-radius: 50px; font-weight: 900; font-size: 0.75rem; text-transform: uppercase; z-index: 10; }
         .badge-amnesia { background: var(--orange-rarity); color: #000; }
         .badge-purple { background: var(--purple-rarity); color: #fff; }
         .badge-kali { background: linear-gradient(45deg, var(--kali-purple), var(--kali-blue)); color: #fff; }
@@ -156,31 +139,11 @@
         .items-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
         .items-list li::before { content: "✔"; color: var(--accent); margin-right: 10px; font-weight: bold; }
 
-        .btn-buy {
-            display: block;
-            background: var(--accent);
-            color: #000;
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 900;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
+        .btn-buy { display: block; background: var(--accent); color: #000; padding: 15px; text-align: center; text-decoration: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
         .btn-buy:not(.disabled):hover { background: #fff; transform: scale(1.02); }
 
-        .coming-soon {
-            opacity: 0.7;
-            filter: grayscale(0.5);
-            border: 2px dashed #444;
-        }
-
-        .btn-buy.disabled {
-            background: #333;
-            color: #666;
-            pointer-events: none;
-        }
+        .coming-soon { opacity: 0.7; filter: grayscale(0.5); border: 2px dashed #444; }
+        .btn-buy.disabled { background: #333; color: #666; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -196,24 +159,19 @@
 <div class="container">
     <div class="box-grid">
         
-        <div class="box-card orange-hover">
-            <div class="image-wrapper">
-                <span class="badge badge-amnesia">Rarità: AMNESIA</span>
-                <img src="https://i.postimg.cc/pr51GxBt/box1-png.jpg" alt="Amnesia Box">
-            </div>
-            <div class="content">
-                <h3>Combo Prima Box</h3>
-                <div class="price">35,00€</div>
-                <ul class="items-list">
-                    <li>7 Filtrini in carbonio</li>
-                    <li>Grinder Swag + Porta J Swag</li>
-                    <li>Mistiera</li>
-                    <li>Bustine + Accendino</li>
-                    <li>Cartine lunghe (gusto a scelta)</li>
-                </ul>
-                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Prima Box (35€)" class="btn-buy">Ordina su WhatsApp</a>
-            </div>
-        </div>
+       <div class="box-card orange-hover *is-sold-out*">
+    *<span class="status-badge badge-sold-out">Sold Out</span>*
+    <div class="image-wrapper">
+        <span class="badge badge-amnesia">Rarità: AMNESIA</span>
+        <img src="https://i.postimg.cc/pr51GxBt/box1-png.jpg" alt="Amnesia Box">
+    </div>
+    <div class="content">
+        <h3>Combo Prima Box</h3>
+        <div class="price">35,00€</div>
+        ...
+        <a href="#" class="btn-buy *disabled">Esaurito*</a>
+    </div>
+</div>
 
         <div class="box-card purple-hover">
             <div class="image-wrapper">
@@ -230,7 +188,6 @@
                     <li>Preservativo Canapa + Accendino</li>
                     <li>Busta porta estratto Rick e Morty</li>
                     <li>5 Cartine Blunt (gusto a scelta)</li>
-                    <li>Cartine inasporite (gusto a scelta)</li>
                 </ul>
                 <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #444;">
                     <input type="checkbox" id="monkey-king-opt" onchange="toggleExtra()">
@@ -267,7 +224,7 @@
             <div class="content">
                 <h3>Combo Narcos Box</h3>
                 <div class="price">??,??€</div>
-                <p style="color: #666; font-size: 0.9rem; text-align: center; margin-bottom: 15px;">Il kit definitivo sta arrivando. Narcos edition...</p>
+                <p style="color: #666; font-size: 0.9rem; text-align: center; margin-bottom: 15px;">Narcos edition drop in arrivo...</p>
                 <div style="margin-top: auto;">
                     <div class="btn-buy disabled">Prossimamente</div>
                 </div>
