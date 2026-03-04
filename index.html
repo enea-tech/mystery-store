@@ -20,7 +20,7 @@
             --card-bg: #161616;
             --light: #f1f1f1;
             --sold-out-color: #ff1744;
-            --warning-color: #ffea00;
+            --warning-color: #ffea00; /* Giallo Segnale */
         }
 
         body {
@@ -69,33 +69,52 @@
             transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
-            position: relative;
+            position: relative; /* Fondamentale per posizionare i bollini */
         }
 
-        /* --- LOGICA SOLD OUT (CORRETTA) --- */
-        .box-card.is-sold-out {
-            filter: grayscale(1) brightness(0.5) !important;
-            pointer-events: none !important; /* Blocca ogni clic su tutta la box */
-            cursor: default;
-        }
-
+        /* --- IL NUOVO BOLLINO "ULTIMI PEZZI" (IMPOSSIBILE DA MANCARE) --- */
         .status-badge {
             position: absolute;
             top: 15px;
             right: 15px;
-            padding: 6px 12px;
-            border-radius: 5px;
+            padding: 8px 15px;
+            border-radius: 8px;
             font-weight: 900;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            z-index: 30;
+            z-index: 100; /* Lo mette sopra a tutto */
+            letter-spacing: 1px;
+            display: inline-block;
         }
-        .badge-sold-out { background: var(--sold-out-color); color: #fff; box-shadow: 0 0 15px var(--sold-out-color); }
-        .badge-last-pieces { background: var(--warning-color); color: #000; animation: pulse 1.5s infinite; }
 
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .badge-last-pieces {
+            background-color: var(--warning-color);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 234, 0, 0.6);
+            border: 2px solid #000;
+            animation: alert-pulse 1s infinite alternate;
+        }
 
-        /* EFFETTI HOVER (SOLO SE DISPONIBILE) */
+        @keyframes alert-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px var(--warning-color); }
+            100% { transform: scale(1.1); box-shadow: 0 0 25px var(--warning-color); }
+        }
+
+        /* --- BOLLINO SOLD OUT --- */
+        .badge-sold-out {
+            background-color: var(--sold-out-color);
+            color: #fff;
+            box-shadow: 0 0 20px var(--sold-out-color);
+            border: 2px solid #fff;
+        }
+
+        .box-card.is-sold-out {
+            filter: grayscale(1) brightness(0.4) !important;
+            pointer-events: none !important;
+        }
+
+        /* ------------------------------------------------------------ */
+
         .box-card:not(.is-sold-out):hover { transform: translateY(-10px); }
         .orange-hover:not(.is-sold-out):hover { border-color: var(--orange-rarity); }
         .purple-hover:not(.is-sold-out):hover { border-color: var(--purple-rarity); }
@@ -136,13 +155,7 @@
             text-transform: uppercase; 
         }
         
-        /* Tasto disattivato forzato */
-        .btn-buy.disabled {
-            background: #222 !important;
-            color: #555 !important;
-            border: 1px solid #333 !important;
-            pointer-events: none !important;
-        }
+        .btn-buy.disabled { background: #222 !important; color: #555 !important; border: 1px solid #333 !important; pointer-events: none !important; }
 
         .question-marks { font-size: 5rem; animation: trippy 3s infinite alternate; }
         @keyframes trippy {
@@ -167,8 +180,8 @@
 <div class="container">
     <div class="box-grid">
         
-        <div class="box-card orange-hover**is-sold-out**">
-            <span class="status-badge badge-sold-out"> Sold Out</span>
+        <div class="box-card orange-hover">
+            <span class="status-badge badge-last-pieces">⚠️ Ultimi Pezzi</span>
             <div class="image-wrapper">
                 <span class="badge badge-amnesia">Rarità: AMNESIA</span>
                 <img src="https://i.postimg.cc/pr51GxBt/box1-png.jpg" alt="Box 1">
@@ -183,14 +196,12 @@
                     <li>Bustine + Accendino</li>
                     <li>Cartine lunghe (gusto a scelta)</li>
                 </ul>
-               <a href="#" class="btn-buy
-**disabled**">**Esaurito**</a>
+                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Prima Box (35€)" class="btn-buy">Ordina su WhatsApp</a>
             </div>
         </div>
 
-        <div class="box-card purple-hover">
-<span class="status-badge badge-
-last-pieces"> Ultimi Pezzi</span>
+        <div class="box-card purple-hover**is-sold-out**">
+            <span class="status-badge badge-sold-out"> Sold Out</span>
             <div class="image-wrapper">
                 <span class="badge badge-purple">Rarità: PURPLE</span>
                 <img src="https://i.postimg.cc/dDMNgXWC/box2-png.jpg" alt="Box 2">
@@ -210,7 +221,8 @@ last-pieces"> Ultimi Pezzi</span>
                     <input type="checkbox" id="monkey-king-opt" onchange="toggleExtra()">
                     <label for="monkey-king-opt" style="font-size: 0.8rem;"> 🎁 + Lattina Monkey King (+15€)</label>
                 </div>
-                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Ricercata (55€)" id="wa-btn-2" class="btn-buy">Ordina su WhatsApp</a>
+               <a href="#" class="btn-buy
+**disabled**">**Esaurito**</a>
             </div>
         </div>
 
