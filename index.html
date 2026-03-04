@@ -19,155 +19,123 @@
             --dark: #0a0a0a;
             --card-bg: #161616;
             --light: #f1f1f1;
+            --promo-red: #ff1744;
             --sold-out-color: #ff1744;
-            --warning-color: #ffea00; /* Giallo Segnale */
+            --warning-color: #ffea00;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--dark);
             color: var(--light);
-            margin: 0;
-            padding: 0;
-            padding-bottom: 80px;
+            margin: 0; padding: 0; padding-bottom: 80px;
         }
 
+        /* BARRA COUNTDOWN STICKY */
+        .promo-banner {
+            background: linear-gradient(90deg, #000, #1a1a1a, #000);
+            border-bottom: 2px solid var(--promo-red);
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            box-shadow: 0 0 20px rgba(255, 23, 68, 0.4);
+        }
+        .promo-text { color: var(--promo-red); font-weight: 900; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 4px; }
+        #countdown { font-family: monospace; font-size: 1.6rem; color: #fff; text-shadow: 0 0 10px var(--promo-red); }
+
+        /* HEADER BANNER */
         header {
-            width: 100%;
-            height: 500px; 
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-bottom: 3px solid var(--accent);
+            width: 100%; height: 500px; 
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; border-bottom: 3px solid var(--accent);
         }
-
         .banner-logo { width: 80%; height: 80%; object-fit: cover; }
 
+        /* NAV CATALOGO */
         .nav-container { text-align: center; margin: 30px 0; }
         .btn-catalog {
-            display: inline-block;
-            color: var(--accent);
-            text-decoration: none;
-            padding: 12px 25px;
-            border: 1px dashed var(--accent);
-            border-radius: 50px;
-            text-transform: uppercase;
-            transition: 0.3s;
+            display: inline-block; color: var(--accent); text-decoration: none;
+            padding: 12px 25px; border: 1px dashed var(--accent);
+            border-radius: 50px; text-transform: uppercase; transition: 0.3s;
         }
         .btn-catalog:hover { background: var(--accent); color: #000; }
 
+        /* GRID SISTEMA */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .box-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 
+        /* CARDS LOGIC */
         .box-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid #333;
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            position: relative; /* Fondamentale per posizionare i bollini */
+            background: var(--card-bg); border-radius: 20px; overflow: hidden;
+            border: 2px solid #333; transition: all 0.4s ease;
+            display: flex; flex-direction: column; position: relative;
         }
 
-        /* --- IL NUOVO BOLLINO "ULTIMI PEZZI" (IMPOSSIBILE DA MANCARE) --- */
+        /* STATO SOLD OUT (FORCE) */
+        .box-card.is-sold-out { filter: grayscale(1) brightness(0.4) !important; pointer-events: none !important; }
+
+        /* BOLLINI STATUS */
         .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: 900;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            z-index: 100; /* Lo mette sopra a tutto */
-            letter-spacing: 1px;
-            display: inline-block;
+            position: absolute; top: 15px; right: 15px; padding: 8px 15px;
+            border-radius: 8px; font-weight: 900; font-size: 0.8rem; text-transform: uppercase; z-index: 100;
         }
+        .badge-sold-out { background: var(--sold-out-color); color: #fff; box-shadow: 0 0 15px var(--sold-out-color); border: 1px solid #fff; }
+        .badge-last-pieces { background: var(--warning-color); color: #000; animation: pulse 1s infinite alternate; border: 1px solid #000; }
+        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
-        .badge-last-pieces {
-            background-color: var(--warning-color);
-            color: #000;
-            box-shadow: 0 0 20px rgba(255, 234, 0, 0.6);
-            border: 2px solid #000;
-            animation: alert-pulse 1s infinite alternate;
-        }
-
-        @keyframes alert-pulse {
-            0% { transform: scale(1); box-shadow: 0 0 10px var(--warning-color); }
-            100% { transform: scale(1.1); box-shadow: 0 0 25px var(--warning-color); }
-        }
-
-        /* --- BOLLINO SOLD OUT --- */
-        .badge-sold-out {
-            background-color: var(--sold-out-color);
-            color: #fff;
-            box-shadow: 0 0 20px var(--sold-out-color);
-            border: 2px solid #fff;
-        }
-
-        .box-card.is-sold-out {
-            filter: grayscale(1) brightness(0.4) !important;
-            pointer-events: none !important;
-        }
-
-        /* ------------------------------------------------------------ */
-
+        /* HOVER RARITÀ */
         .box-card:not(.is-sold-out):hover { transform: translateY(-10px); }
-        .orange-hover:not(.is-sold-out):hover { border-color: var(--orange-rarity); }
-        .purple-hover:not(.is-sold-out):hover { border-color: var(--purple-rarity); }
-        .kali-hover:not(.is-sold-out):hover { border-color: var(--kali-white); }
+        .orange-hover:not(.is-sold-out):hover { border-color: var(--orange-rarity); box-shadow: 0 0 20px var(--orange-rarity); }
+        .purple-hover:not(.is-sold-out):hover { border-color: var(--purple-rarity); box-shadow: 0 0 20px var(--purple-rarity); }
+        .kali-hover:not(.is-sold-out):hover { border-color: var(--kali-white); box-shadow: 0 0 15px var(--kali-purple), 0 0 30px var(--kali-blue); }
 
         .image-wrapper {
-            width: 100%;
-            height: 300px;
+            width: 100%; height: 300px;
             background: radial-gradient(circle, #222 0%, #000 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            display: flex; align-items: center; justify-content: center; position: relative;
         }
-        .image-wrapper img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .image-wrapper img { max-width: 85%; max-height: 85%; object-fit: contain; filter: drop-shadow(0 10px 15px #000); }
 
-        .badge { position: absolute; top: 15px; left: 15px; padding: 8px 18px; border-radius: 50px; font-weight: 900; font-size: 0.75rem; z-index: 10; }
-        .badge-amnesia { background: var(--orange-rarity); color: #000; }
-        .badge-purple { background: var(--purple-rarity); color: #fff; }
-        .badge-kali { background: linear-gradient(45deg, var(--kali-purple), var(--kali-blue)); color: #fff; }
-        .badge-soon { background: #444; color: #aaa; }
+        .rarity-tag { position: absolute; top: 15px; left: 15px; padding: 6px 15px; border-radius: 50px; font-weight: 900; font-size: 0.7rem; z-index: 10; }
+        .tag-amnesia { background: var(--orange-rarity); color: #000; }
+        .tag-purple { background: var(--purple-rarity); color: #fff; }
+        .tag-kali { background: linear-gradient(45deg, var(--kali-purple), var(--kali-blue)); color: #fff; }
+        .tag-soon { background: #444; color: #aaa; }
 
         .content { padding: 25px; flex-grow: 1; }
         .price { font-size: 2.2rem; color: #fff; font-weight: 900; }
+        .old-price { font-size: 1.1rem; color: #666; text-decoration: line-through; margin-right: 8px; }
+
         .items-list { margin: 15px 0; padding: 0; list-style: none; color: #aaa; font-size: 0.85rem; }
-        .items-list li { margin-bottom: 8px; display: flex; }
-        .items-list li::before { content: "✔"; color: var(--accent); margin-right: 10px; }
+        .items-list li { margin-bottom: 6px; display: flex; align-items: flex-start; }
+        .items-list li::before { content: "✔"; color: var(--accent); margin-right: 10px; font-weight: bold; }
 
         .btn-buy { 
-            display: block; 
-            background: var(--accent); 
-            color: #000; 
-            padding: 15px; 
-            text-align: center; 
-            text-decoration: none; 
-            border-radius: 12px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
+            display: block; background: var(--accent); color: #000; 
+            padding: 15px; text-align: center; text-decoration: none; 
+            border-radius: 12px; font-weight: 900; text-transform: uppercase; transition: 0.3s;
         }
-        
-        .btn-buy.disabled { background: #222 !important; color: #555 !important; border: 1px solid #333 !important; pointer-events: none !important; }
+        .btn-buy:not(.disabled):hover { background: #fff; transform: scale(1.03); }
+        .btn-buy.disabled { background: #222 !important; color: #555 !important; pointer-events: none !important; }
 
-        .question-marks { font-size: 5rem; animation: trippy 3s infinite alternate; }
+        /* ANIMAZIONE NARCOS */
+        .question-marks { font-size: 5rem; animation: trippy 3s infinite alternate; font-weight: 900; }
         @keyframes trippy {
-            0% { text-shadow: 0 0 10px var(--trip-pink); }
-            50% { text-shadow: 0 0 10px var(--trip-lime); }
-            100% { text-shadow: 0 0 10px var(--trip-cyan); }
+            0% { text-shadow: 0 0 10px var(--trip-pink); color: var(--trip-pink); }
+            50% { text-shadow: 0 0 10px var(--trip-lime); color: var(--trip-lime); }
+            100% { text-shadow: 0 0 10px var(--trip-cyan); color: var(--trip-cyan); }
         }
-
         .coming-soon { opacity: 0.6; border: 2px dashed #444; }
     </style>
 </head>
 <body>
+
+<div class="promo-banner">
+    <div class="promo-text">⚠️ SCONTO APERTURA - FINE PROMO TRA: ⚠️</div>
+    <div id="countdown">Caricamento...</div>
+</div>
 
 <header>
     <img src="https://i.postimg.cc/59BWBS6d/Whats-App-Image-2026-03-02-at-20-36-39.jpg" alt="Banner" class="banner-logo">
@@ -181,13 +149,14 @@
     <div class="box-grid">
         
         <div class="box-card orange-hover">
+            <span class="status-badge badge-last-pieces">⚠️ Ultimi Pezzi</span>
             <div class="image-wrapper">
-                <span class="badge badge-amnesia">Rarità: AMNESIA</span>
+                <span class="rarity-tag tag-amnesia">Rarità: AMNESIA</span>
                 <img src="https://i.postimg.cc/pr51GxBt/box1-png.jpg" alt="Box 1">
             </div>
             <div class="content">
                 <h3>Combo Prima Box</h3>
-                <div class="price">35,00€</div>
+                <div class="price"><span class="old-price">35€</span> 29,90€</div>
                 <ul class="items-list">
                     <li>7 Filtrini in carbonio</li>
                     <li>Grinder Swag + Porta J Swag</li>
@@ -195,61 +164,60 @@
                     <li>Bustine + Accendino</li>
                     <li>Cartine lunghe (gusto a scelta)</li>
                 </ul>
-                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Prima Box (35€)" class="btn-buy">Ordina su WhatsApp</a>
+                <a href="https://wa.me/393274924496?text=Ciao! Approfitto dello sconto lancio per la Combo Prima Box (29,90€)" class="btn-buy">Ordina Ora</a>
             </div>
         </div>
 
         <div class="box-card purple-hover">
             <div class="image-wrapper">
-                <span class="badge badge-purple">Rarità: PURPLE</span>
+                <span class="rarity-tag tag-purple">Rarità: PURPLE</span>
                 <img src="https://i.postimg.cc/dDMNgXWC/box2-png.jpg" alt="Box 2">
             </div>
             <div class="content">
                 <h3>Combo Ricercata</h3>
-                <div class="price" id="total-price-2">55,00€</div>
+                <div class="price" id="total-price-2"><span class="old-price">55€</span> 44,90€</div>
                 <ul class="items-list">
                     <li>20 Filtrini in carbonio</li>
                     <li>Grinder Swag + Porta J Swag</li>
                     <li>Mistiera + Porta Clipper</li>
                     <li>Preservativo Canapa + Accendino</li>
-                    <li>Busta porta estratto Rick e Morty</li>
-                    <li>5 Cartine Blunt</li>
+                    <li>Busta Rick e Morty + 5 Blunt</li>
                 </ul>
-                <div style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #333;">
+                <div style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #333;">
                     <input type="checkbox" id="monkey-king-opt" onchange="toggleExtra()">
-                    <label for="monkey-king-opt" style="font-size: 0.8rem;"> 🎁 + Lattina Monkey King (+15€)</label>
+                    <label for="monkey-king-opt" style="font-size: 0.8rem; cursor: pointer;"> 🎁 + Lattina Monkey King (+15€)</label>
                 </div>
-                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Ricercata (55€)" id="wa-btn-2" class="btn-buy">Ordina su WhatsApp</a>
+                <a href="https://wa.me/393274924496?text=Ciao! Approfitto dello sconto lancio per la Combo Ricercata (44,90€)" id="wa-btn-2" class="btn-buy">Ordina Ora</a>
             </div>
         </div>
 
         <div class="box-card kali-hover">
             <div class="image-wrapper">
-                <span class="badge badge-kali">Rarità: KALI</span>
+                <span class="rarity-tag tag-kali">Rarità: KALI</span>
                 <img src="https://i.postimg.cc/8PRVNBhT/unnamed-(12).jpg" alt="Box 3">
             </div>
             <div class="content">
                 <h3>Combo Kali Box</h3>
-                <div class="price">55,00€</div>
+                <div class="price"><span class="old-price">55€</span> 44,90€</div>
                 <ul class="items-list">
                     <li>7 Filtrini in carbonio</li>
                     <li>Vassoio Swag + Grinder Swag</li>
                     <li>Porta J Swag + Porta Clipper</li>
                     <li>5 Blunt + 2 Pacchi Cartine</li>
                 </ul>
-                <a href="https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Kali Box (55€)" class="btn-buy">Ordina su WhatsApp</a>
+                <a href="https://wa.me/393274924496?text=Ciao! Approfitto dello sconto lancio per la Combo Kali Box (44,90€)" class="btn-buy">Ordina Ora</a>
             </div>
         </div>
 
         <div class="box-card coming-soon">
             <div class="image-wrapper">
-                <span class="badge badge-soon">Mistero</span>
+                <span class="rarity-tag tag-soon">Mistero</span>
                 <div class="question-marks">???</div>
             </div>
             <div class="content">
                 <h3>Combo Narcos Box</h3>
                 <div class="price">??,??€</div>
-                <p style="color: #555; font-size: 0.8rem; text-align: center;">Il drop Narcos sta arrivando...</p>
+                <p style="color: #666; font-size: 0.85rem; text-align: center;">Narcos Drop sta arrivando...</p>
                 <div style="margin-top: auto;">
                     <a href="#" class="btn-buy disabled">Prossimamente</a>
                 </div>
@@ -260,20 +228,40 @@
 </div>
 
 <script>
+    /* --- LOGICA COUNTDOWN --- */
+    // Imposta qui la data di fine (6 Marzo 2026 alle 18:00)
+    const countdownDate = new Date(2026, 2, 6, 18, 0, 0).getTime();
+
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML = d + "d " + h + "h " + m + "m " + s + "s ";
+
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById("countdown").innerHTML = "OFFERTA SCADUTA";
+        }
+    }, 1000);
+
+    /* --- LOGICA BOX 2 --- */
     function toggleExtra() {
         const check = document.getElementById('monkey-king-opt');
         const priceDisplay = document.getElementById('total-price-2');
         const waBtn = document.getElementById('wa-btn-2');
         if (check.checked) {
-            priceDisplay.innerText = "70,00€";
-            waBtn.href = "https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Ricercata + Lattina Monkey King (70€)";
+            priceDisplay.innerHTML = '<span class="old-price">70€</span> 59,90€';
+            waBtn.href = "https://wa.me/393274924496?text=Ciao! Approfitto della promo per la Combo Ricercata + Lattina Monkey King (59,90€)";
         } else {
-            priceDisplay.innerText = "55,00€";
-            waBtn.href = "https://wa.me/393274924496?text=Ciao! Vorrei ordinare la Combo Ricercata (55€)";
+            priceDisplay.innerHTML = '<span class="old-price">55€</span> 44,90€';
+            waBtn.href = "https://wa.me/393274924496?text=Ciao! Approfitto della promo per la Combo Ricercata (44,90€)";
         }
     }
 </script>
 
 </body>
 </html>
-
